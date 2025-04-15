@@ -1,4 +1,5 @@
-
+# Add a thick burgundy top bar to the existing HTML layout
+html_with_top_bar = """
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -13,20 +14,17 @@
       background-size: cover;
       backdrop-filter: blur(3px);
     }
+    .topbar {
+      background-color: #7a123d;
+      height: 60px;
+      width: 100%;
+    }
     .overlay {
       background-color: rgba(255, 255, 255, 0.88);
-      min-height: 100vh;
+      min-height: calc(100vh - 60px);
       display: flex;
       flex-direction: column;
       justify-content: center;
-    }
-    .header {
-      background-color: #7a123d;
-      padding: 20px;
-      text-align: center;
-    }
-    .header img {
-      height: 48px;
     }
     .container {
       max-width: 460px;
@@ -40,6 +38,14 @@
     h2 {
       color: #7a123d;
       text-align: center;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
     }
     .login-button {
       background-color: #7a123d;
@@ -75,17 +81,21 @@
   </style>
   <script>
     function showError() {
-      document.getElementById('error').style.display = 'block';
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if (user && pass) {
+        document.getElementById('error').style.display = 'block';
+      }
     }
   </script>
 </head>
 <body>
+  <div class="topbar"></div>
   <div class="overlay">
-    <div class="header">
-      <img src="data:image/png;base64,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" alt="Medios Logo">
-    </div>
     <div class="container">
       <h2>Medios Connect – Anmeldung</h2>
+      <input type="text" id="username" placeholder="Benutzername" />
+      <input type="password" id="password" placeholder="Passwort" />
       <button class="login-button" onclick="showError()">Anmelden</button>
       <div id="error" class="error-message">
         ❌ Anmeldung fehlgeschlagen – bitte versuchen Sie es später erneut.<br>
@@ -98,3 +108,11 @@
   </div>
 </body>
 </html>
+"""
+
+# Save the HTML with top bar
+html_with_bar_path = "/mnt/data/medios-connect-login-burgundy-bar.html"
+with open(html_with_bar_path, "w", encoding="utf-8") as f:
+    f.write(html_with_top_bar)
+
+html_with_bar_path
