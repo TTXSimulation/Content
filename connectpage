@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Medios Connect – Anmeldung</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f4f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-box {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      width: 360px;
+      text-align: center;
+    }
+    .logo {
+      width: 180px;
+      margin-bottom: 20px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #7a123d;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .error {
+      margin-top: 15px;
+      color: #d8000c;
+      background-color: #ffd2d2;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <img src="medios-logo.png" alt="Medios Logo" class="logo" />
+    <h2>Medios Connect</h2>
+    <input type="text" placeholder="Benutzername" />
+    <input type="password" placeholder="Passwort" />
+    <button onclick="showError()">Anmelden</button>
+    <div id="errorBox" class="error" style="display: none;">
+      Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.
+    </div>
+  </div>
+
+  <script>
+    function showError() {
+      document.getElementById("errorBox").style.display = "block";
+    }
+  </script>
+</body>
+</html>
